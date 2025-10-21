@@ -2,6 +2,7 @@ import numpy as np
 import os
 from tensorflow.keras import layers, models
 from utils import get_bbox_df, prep_image
+from tqdm import tqdm
 
 
 IMG_SIZE = 128
@@ -14,7 +15,7 @@ bbox_df = get_bbox_df()
 images = []
 labels = []
 
-for i in range(NUM_SAMPLES):
+for i in tqdm(range(NUM_SAMPLES)):
     image_bbox = bbox_df.iloc[i]
     img_path = os.path.join("dataset\celeba\img_align_celeba\img_align_celeba",image_bbox["image_id"])
 
