@@ -1,10 +1,7 @@
 import numpy as np
-import pandas as pd
 import os
 import cv2
-import tensorflow as tf
 from tensorflow.keras import layers, models
-import matplotlib.pyplot as plt
 from load_data import get_bbox_df
 
 
@@ -80,3 +77,5 @@ model.save(os.path.join(MODEL_FOLDER,"face_detector_model.keras"))
 import json
 with open(os.path.join(MODEL_FOLDER,"training_history,json"), 'w') as f:
     json.dump(history.history, f)
+
+print(f"TRAINING DONE - MODEL SAVED IN ./{MODEL_FOLDER}")
