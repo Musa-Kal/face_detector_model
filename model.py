@@ -10,6 +10,7 @@ from load_data import get_bbox_df
 
 IMG_SIZE = 128
 NUM_SAMPLES = 1#2000
+MODEL_FOLDER = "model"
 
 
 bbox_df = get_bbox_df()
@@ -67,3 +68,15 @@ model = build_model()
 model.compile(optimizer="adam", loss='mse')
 model.summary()
 
+history = model.fit(X, y_, epochs=15, batch_size=32, validation_split=0.2)
+
+# Save weights
+model.save_weights(os.path.join(MODEL_FOLDER,"face_detector_weights.h5"))
+
+# Save full model
+model.save(os.path.join(MODEL_FOLDER,"face_detector_model.h5"))
+
+# Save training history
+import json
+with open(os.path.join(MODEL_FOLDER,"training_history,json"), 'w') as f:
+    json.dump(history.history, f)
