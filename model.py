@@ -47,3 +47,21 @@ X = np.array(images, dtype=np.float32)
 y_ = np.array(labels, dtype=np.float32)
 
 print("=== DATA PROCESSED ===")
+
+def build_model(input_size=(128,128,3)):
+    # shaped like this cause why not 
+    inputs = layers.Input(shape=input_size)
+    x = layers.Conv2D(32, 3, padding="same", activation="relu")(inputs)
+    x = layers.MaxPooling2D(2)(x)
+    x = layers.Conv2D(64, 3, padding="same", activation="relu")(x)
+    x = layers.MaxPooling2D(2)(x)
+    x = layers.Conv2D(128, 3, padding="same", activation="relu")(x)
+    x = layers.MaxPooling2D(2)(x)
+    x = layers.Conv2D(256, 3, padding="same", activation="relu")(x)
+    x = layers.GlobalAveragePooling2D()(x)
+    x = layers.Dense(5, activation='sigmoid')(x)
+    return models.Model(inputs, x)
+
+
+model = build_model()
+    
