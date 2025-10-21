@@ -1,8 +1,7 @@
 import numpy as np
 import os
-import cv2
 from tensorflow.keras import layers, models
-from load_data import get_bbox_df
+from utils import get_bbox_df, prep_image
 
 
 IMG_SIZE = 128
@@ -24,21 +23,17 @@ for i in range(NUM_SAMPLES):
         print(image_bbox)
         continue
 
-    img = cv2.imread(img_path)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    img_height, img_width, _ = img.shape
-
-    img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
+    prepared_img, original_img_height, original_img_width = prep_image(img_path)
 
     # normalizing bbox
-    x = image_bbox["x_1"] / img_width
-    y = image_bbox["y_1"] / img_height
-    width = image_bbox["width"] / img_width
-    height = image_bbox["height"] / img_height
+    x = image_bbox["x_1"] / original_img_width
+    y = image_bbox["y_1"] / original_img_height
+    width = image_bbox["width"] / original_img_width
+    height = image_bbox["height"] / original_img_height
     conf = 1.0
 
     # adding data
-    images.append(img / 255)
+    images.append(prepared_img / 255)
     labels.append((x, y, width, height, conf))
 
 X = np.array(images, dtype=np.float32)
