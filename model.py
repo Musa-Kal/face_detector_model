@@ -64,4 +64,6 @@ def build_model(input_size=(128,128,3)):
 
 
 model = build_model()
-    
+model.compile(optimizer="adam", loss='mse')
+model.summary()
+
