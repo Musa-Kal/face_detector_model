@@ -3,7 +3,7 @@ import os
 from tensorflow.keras import layers, models
 from utils import get_bbox_df, prep_image
 from tqdm import tqdm
-from model_setup import NUM_SAMPLES, MODEL_FOLDER, IMAGE_PATH
+from model_setup import NUM_SAMPLES, MODEL_FOLDER, IMAGE_PATH, SAMPLE_OFFSET, TRAINED_MODEL_PATH
 
 
 bbox_df = get_bbox_df()
@@ -12,7 +12,7 @@ images = []
 labels = []
 
 for i in tqdm(range(NUM_SAMPLES)):
-    image_bbox = bbox_df.iloc[i]
+    image_bbox = bbox_df.iloc[i+SAMPLE_OFFSET]
     img_path = os.path.join(IMAGE_PATH, f"{image_bbox['image_id']}")
 
     if not os.path.exists(img_path):
@@ -39,7 +39,6 @@ y_ = np.array(labels, dtype=np.float32)
 print("=== DATA PROCESSED ===")
 print(len(X), "samples")
 print(len(y_), "labels")
-print("=== BUIILDING MODEL ===")
 
 def build_model(input_size=(128,128,3)):
     # shaped like this cause why not 
@@ -56,9 +55,14 @@ def build_model(input_size=(128,128,3)):
     return models.Model(inputs, x)
 
 
-model = build_model()
-model.compile(optimizer="adam", loss='mse')
-model.summary()
+if (os.path.exists(TRAINED_MODEL_PATH)):
+    print("=== LOADING EXISTING MODEL ===")
+    model = models.load_model(TRAINED_MODEL_PATH)
+else:
+    print("=== BUIILDING MODEL ===")
+    model = build_model()
+    model.compile(optimizer="adam", loss='mse')
+    model.summary()
 
 print("=== TRAINING MODEL ===")
 
