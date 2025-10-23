@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import cv2
+from model_setup import IMG_SIZE
 
 DATASET_PATH = "dataset/celeba"
 
@@ -9,7 +10,7 @@ def get_bbox_df():
     bbox_df.head()
     return bbox_df
 
-def prep_image(img_path, IMG_SIZE=128):
+def prep_image(img_path, IMG_SIZE=IMG_SIZE):
     img = cv2.imread(img_path)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img_height, img_width, _ = img.shape

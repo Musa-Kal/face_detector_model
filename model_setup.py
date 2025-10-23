@@ -1,0 +1,3 @@
+IMG_SIZE = 128
+NUM_SAMPLES = 10
+MODEL_FOLDER = "model"
