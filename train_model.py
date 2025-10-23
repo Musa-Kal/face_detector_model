@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 
 IMG_SIZE = 128
-NUM_SAMPLES = 10#2000
+NUM_SAMPLES = 10
 MODEL_FOLDER = "model"
 
 
@@ -17,11 +17,11 @@ labels = []
 
 for i in tqdm(range(NUM_SAMPLES)):
     image_bbox = bbox_df.iloc[i]
-    img_path = os.path.join("dataset\celeba\img_align_celeba\img_align_celeba",image_bbox["image_id"])
+    img_path = os.path.join(r"dataset\celeba\img_align_celeba\img_align_celeba",image_bbox["image_id"])
 
     if not os.path.exists(img_path):
         print("!!! Image not Found !!!")
-        print(image_bbox)
+        print(img_path)
         continue
 
     prepared_img, original_img_height, original_img_width = prep_image(img_path)
@@ -41,6 +41,9 @@ X = np.array(images, dtype=np.float32)
 y_ = np.array(labels, dtype=np.float32)
 
 print("=== DATA PROCESSED ===")
+print(len(X), "samples")
+print(len(y_), "labels")
+print("=== BUIILDING MODEL ===")
 
 def build_model(input_size=(128,128,3)):
     # shaped like this cause why not 
@@ -60,6 +63,8 @@ def build_model(input_size=(128,128,3)):
 model = build_model()
 model.compile(optimizer="adam", loss='mse')
 model.summary()
+
+print("=== TRAINING MODEL ===")
 
 history = model.fit(X, y_, epochs=15, batch_size=32, validation_split=0.2)
 
