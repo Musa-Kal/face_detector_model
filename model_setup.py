@@ -1,7 +1,7 @@
 import os
 
 IMG_SIZE = 128
-NUM_SAMPLES = 10
+NUM_SAMPLES = 10000
 
 MODEL_FOLDER = "model"
 DATASET_PATH = os.path.join("dataset", "celeba")
