@@ -72,7 +72,7 @@ model.save(os.path.join(MODEL_FOLDER,"face_detector_model.keras"))
 
 # Save training history
 import json
-with open(os.path.join(MODEL_FOLDER,"training_history,json"), 'w') as f:
+with open(os.path.join(MODEL_FOLDER,"training_history.json"), 'w') as f:
     json.dump(history.history, f)
 
 print(f"TRAINING DONE - MODEL SAVED IN ./{MODEL_FOLDER}")
