@@ -3,10 +3,7 @@ import os
 from tensorflow.keras import layers, models
 from utils import get_bbox_df, prep_image
 from tqdm import tqdm
-from model_setup import IMG_SIZE, NUM_SAMPLES, MODEL_FOLDER
-
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+from model_setup import NUM_SAMPLES, MODEL_FOLDER, IMAGE_PATH
 
 
 bbox_df = get_bbox_df()
@@ -16,9 +13,7 @@ labels = []
 
 for i in tqdm(range(NUM_SAMPLES)):
     image_bbox = bbox_df.iloc[i]
-    img_path = os.path.join(
-        BASE_DIR, "dataset", "celeba", "img_align_celeba", "img_align_celeba", image_bbox["image_id"]
-    )
+    img_path = os.path.join(IMAGE_PATH, f"{image_bbox['image_id']}")
 
     if not os.path.exists(img_path):
         print("!!! Image not Found !!!")

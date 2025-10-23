@@ -4,6 +4,7 @@ import os
 import cv2
 import matplotlib.pyplot as plt
 from utils import prep_image
+from model_setup import MODEL_FOLDER, IMAGE_PATH
 
 
 def load_model_from_file(path):
@@ -24,6 +25,8 @@ def visualize_prediction(model, img_path):
 
     pred = model.predict(np.expand_dims(prepared_img / 255, axis=0))[0]
 
+    print(" Predicted (normalized): ", pred)
+
     x, yb, bw, bh, conf = pred * [original_img_width, original_img_height, original_img_width, original_img_height, 1]
 
     img_drawn = img.copy()
@@ -40,5 +43,6 @@ def visualize_prediction(model, img_path):
 
 if __name__ == "__main__":
     print("loading...")
-    model = load_model_from_file("model/face_detector_model.keras")
-    visualize_prediction(model, r"dataset\celeba\img_align_celeba\img_align_celeba\000001.jpg")
+    model = load_model_from_file(os.path.join(MODEL_FOLDER, "face_detector_model.keras"))
+    print("=== MODEL LOADED ===")
+    visualize_prediction(model, os.path.join(IMAGE_PATH, "000001.jpg"))
