@@ -62,7 +62,7 @@ def build_model(input_size=(128,128,3)):
     return models.Model(inputs, x)
 
 
-if (os.path.exists(TRAINED_MODEL_PATH)):
+if (TRAINED_MODEL_PATH and os.path.exists(TRAINED_MODEL_PATH)):
     print("=== LOADING EXISTING MODEL ===")
     model = models.load_model(TRAINED_MODEL_PATH)
 else:
