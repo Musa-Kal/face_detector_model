@@ -30,7 +30,11 @@ def load_cifar10_batch(batch_name='data_batch_1'):
 
 
 if __name__ == "__main__":
-    # print(get_bbox_df())
+    import matplotlib.pyplot as plt
+    print(get_bbox_df())
     img = load_cifar10_batch()[0][0]  # first image
     img_bgr = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)           # convert color channels
     img_resized = cv2.resize(img_bgr, (320, 320), interpolation=cv2.INTER_NEAREST)
+    plt.imshow(img_resized)
+    plt.axis('off')
+    plt.show()
