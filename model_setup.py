@@ -3,6 +3,7 @@ import os
 IMG_SIZE = 128
 NUM_SAMPLES = 10
 SAMPLE_OFFSET = 0
+FACE_IMAGE_SPLIT_RATIO = 1
 
 MODEL_FOLDER = "model"
 TRAINED_MODEL_PATH = os.path.join(MODEL_FOLDER, "face_detector_model.keras")

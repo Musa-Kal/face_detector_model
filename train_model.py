@@ -3,7 +3,7 @@ import os
 from tensorflow.keras import layers, models
 from utils import get_bbox_df, prep_image
 from tqdm import tqdm
-from model_setup import NUM_SAMPLES, MODEL_FOLDER, IMAGE_PATH, SAMPLE_OFFSET, TRAINED_MODEL_PATH
+from model_setup import NUM_SAMPLES, MODEL_FOLDER, IMAGE_PATH, SAMPLE_OFFSET, TRAINED_MODEL_PATH, FACE_IMAGE_SPLIT_RATIO, IMG_SIZE
 
 
 bbox_df = get_bbox_df()
@@ -12,6 +12,13 @@ images = []
 labels = []
 
 for i in tqdm(range(NUM_SAMPLES)):
+
+    if np.random.rand() < FACE_IMAGE_SPLIT_RATIO:
+        random_img = np.random.randint(0, 256, size=(IMG_SIZE, IMG_SIZE, 3), dtype=np.uint8)
+        images.append(random_img / 255)
+        labels.append((0, 0, 0, 0, 0))  # no face
+        continue
+
     image_bbox = bbox_df.iloc[i+SAMPLE_OFFSET]
     img_path = os.path.join(IMAGE_PATH, f"{image_bbox['image_id']}")
 
