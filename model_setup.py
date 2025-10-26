@@ -9,4 +9,4 @@ MODEL_FOLDER = "model"
 TRAINED_MODEL_PATH = None#os.path.join(MODEL_FOLDER, "face_detector_model.keras")
 CELEBA_DATASET_PATH = os.path.join("dataset", "celeba")
 CIFAR_DATASET_PATH = os.path.join("dataset", "cifar10_data")
-IMAGE_PATH = os.path.join(CELEBA_DATASET_PATH, "img_align_celeba", "img_align_celeba")
+IMAGE_PATH = os.path.join(CELEBA_DATASET_PATH, "img_celeba")
