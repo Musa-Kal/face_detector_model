@@ -1,4 +1,4 @@
-# Face Detector Model
+# Face Detection Model
 
 So recently I had been learning A.I / M.L and at this point have a pretty good understanding of how they work under the hood and the logic and maths behind them, so I wanted to make and train my 1st model with all the knowledge I have acquired so far and this is my attempt at making my 1st model from scratch.
 
