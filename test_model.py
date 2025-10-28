@@ -4,7 +4,7 @@ import os
 import cv2
 import matplotlib.pyplot as plt
 from utils import prep_image, get_bbox_df
-from model_setup import MODEL_FOLDER, IMAGE_PATH
+from model_setup import MODEL_FOLDER, IMAGE_PATH, IMG_SIZE
 
 
 def load_model_from_file(path):
@@ -55,4 +55,6 @@ if __name__ == "__main__":
     model = load_model_from_file(os.path.join(MODEL_FOLDER, "face_detector_model.keras"))
     print("=== MODEL LOADED ===")
     data = get_bbox_df().iloc[1]
-    visualize_prediction(model, os.path.join(IMAGE_PATH, data["image_id"]), data)
+    #visualize_prediction(model, os.path.join(IMAGE_PATH, data["image_id"]), data)
+    img = np.expand_dims(np.random.randint(0, 256, size=(IMG_SIZE, IMG_SIZE, 3), dtype=np.uint8) / 255, axis=0)
+    print(model.predict(img))
