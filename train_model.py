@@ -1,6 +1,7 @@
 import numpy as np
 import os
-from tensorflow.keras import layers, models
+from tensorflow.keras import models
+from model import FaceBBoxModel
 from utils import get_bbox_df, prep_image
 from tqdm import tqdm
 from model_setup import NUM_SAMPLES, MODEL_FOLDER, IMAGE_PATH, SAMPLE_OFFSET, TRAINED_MODEL_PATH, FACE_IMAGE_SPLIT_RATIO, IMG_SIZE
@@ -47,27 +48,13 @@ print("=== DATA PROCESSED ===")
 print(len(X), "samples")
 print(len(y_), "labels")
 
-def build_model(input_size=(128,128,3)):
-    # shaped like this cause why not 
-    inputs = layers.Input(shape=input_size)
-    x = layers.Conv2D(32, 3, padding="same", activation="relu")(inputs)
-    x = layers.MaxPooling2D(2)(x)
-    x = layers.Conv2D(64, 3, padding="same", activation="relu")(x)
-    x = layers.MaxPooling2D(2)(x)
-    x = layers.Conv2D(128, 3, padding="same", activation="relu")(x)
-    x = layers.MaxPooling2D(2)(x)
-    x = layers.Conv2D(256, 3, padding="same", activation="relu")(x)
-    x = layers.GlobalAveragePooling2D()(x)
-    x = layers.Dense(5, activation='sigmoid')(x)
-    return models.Model(inputs, x)
-
 
 if (TRAINED_MODEL_PATH and os.path.exists(TRAINED_MODEL_PATH)):
     print("=== LOADING EXISTING MODEL ===")
     model = models.load_model(TRAINED_MODEL_PATH)
 else:
     print("=== BUIILDING MODEL ===")
-    model = build_model()
+    model = FaceBBoxModel(input_size=(IMG_SIZE, IMG_SIZE, 3)).model
     model.compile(optimizer="adam", loss='mse')
     model.summary()
 
