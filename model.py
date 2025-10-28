@@ -16,7 +16,7 @@ def load_model_from_file(path):
 def visualize_prediction(model, img_path, box_df=None):
 
     if not os.path.exists(img_path):
-        print("!!! Image not Found !!!")
+        print(f"!!! Image not Found at {img_path} !!!")
         return
     
     img = cv2.imread(img_path)
