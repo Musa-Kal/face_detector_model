@@ -1,6 +1,6 @@
 # Face Detection Model
 
-So recently I had been learning A.I / M.L and at this point have a pretty good understanding of how they work under the hood and the logic and maths behind them, so I wanted to make and train my 1st model with all the knowledge I have acquired so far and this is my attempt at making my 1st model from scratch.
+Recently I had been learning A.I / M.L and at this point have a pretty good understanding of how they work under the hood and the logic and maths behind them, so I wanted to make and train my 1st model with all the knowledge I have acquired so far and this is my attempt at making my 1st model from scratch.
 
 ## Why Face Detector?
 
@@ -48,7 +48,9 @@ I knew I wanted to do something complex. So one random tuesday at 10pm I thought
 ### Day 4
 - train and test the model.
     - this is the 1st time I trained this model with about 10k images and It performed absolutely abysmally.
-    - my intuition was to train it with even more images and it's not a good idea to load anymore images in my RAM so I decided to add an offset parameter to model_setup.py so I can load an existing model and train it on more new images.
-    - this didn't fix the problem it still performed very poorly, so my intuition was that since I have confidence score as a feature but all my training data is of images with faces, so the model is just learning to maximize the confidence score since its always 1 for my training data, so I decided to add a new parameter to model_setup.py to add and control the quantity of images without faces and I did this by randomly inserting images with random RGB values for each pixel into the training data, this did improve the loss value but its was still extremely bad.
-
-    
+    - my intuition was to train it with even more images and it's not a good idea to load anymore images in my RAM so I decided to add an offset parameter to model_setup.py so I can load an existing model and train it on more new images. This didn't fix the problem it still performed very poorly, so my intuition was that since I have confidence score as a feature but all my training data is of images with faces, so the model is just learning to maximize the confidence score since its always 1 for my training data, so I decided to add a new parameter to model_setup.py to add and control the quantity of images without faces and I did this by randomly inserting images with random RGB values for each pixel into the training data, this did improve the loss value but its was still extremely bad.
+    - my next intuition was either it's the model itself or the dataset and to test out my prediction I trained the model a few thousand times on one images so it could perfectly learn to fit the boundary box and and it was still off so, I compared it to the image label and prediction matched the label but not image itself meaning the it was a dataset miss-match after the little bit of research I found out Images I was using were aligned and cropped to focus the the face and the labels were from the original images
+    - I acquired the original images on [CelebA](https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) and trained a new model, it finally showed promising results.
+    - Until this point, the model ahs been trained on 30k images with and without faces.
+        - Even though model is able to predict the boundary box on images it has not been trained on fairly well it still shows a bias for of center on an image, and this is even more perevelent when it is made to predict boundary box of an image that has fave either corner of the image, the predicted boundary is in the direction of the face but is not lined up with it and even in images without faces model is confident there is a face in them middle so far model has learned to place boundary box in middle of the image with a bias todays the position of the face.
+        - I plan to retrain the model but this time augment and crop the images in the training data so the model better predict and boundary relative to the location of the face. 
