@@ -12,7 +12,7 @@ This readme.md is a compilation of all my finding, research, intuition, and know
 
 ## Intuition:
 
-I knew I wanted to do something complex. So one random tuesday at 10pm I thought why not an object classifier and a face detector using a CNN to be specific, and now I just needed to figure out the input and features for it. Input was pretty simple just the RGB value at each pixel but features I had to figure out, so that day while trying to sleep I had an though why not 5 features x, y, height, width, confidence.
+I knew I wanted to do something complex. So one random tuesday at 10pm I thought why not an object classifier and a face detector using a classical neural network with dense layers to be specific, and now I just needed to figure out the input and features for it. Input was pretty simple just the RGB value at each pixel but features I had to figure out, so that day while trying to sleep I had an though why not 5 features x, y, height, width, confidence.
 
 - x, y being the top left coordinate of where the rectangle should be placed.
 - height, width being the size of the rectangle that encompasses the face.
