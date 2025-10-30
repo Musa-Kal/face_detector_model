@@ -55,7 +55,6 @@ if (TRAINED_MODEL_PATH and os.path.exists(TRAINED_MODEL_PATH)):
 else:
     print("=== BUIILDING MODEL ===")
     model = FaceBBoxModel(input_size=(IMG_SIZE, IMG_SIZE, 3)).model
-    model.compile(optimizer="adam", loss='mse')
     model.summary()
 
 print("=== TRAINING MODEL ===")
