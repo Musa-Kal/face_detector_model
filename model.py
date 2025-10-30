@@ -18,3 +18,4 @@ class FaceBBoxModel:
         x = layers.GlobalAveragePooling2D()(x)
         x = layers.Dense(5, activation='sigmoid')(x)
         self.model = models.Model(inputs, x)
+        self.model.compile(optimizer="adam", loss='mse')
